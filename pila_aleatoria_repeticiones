@@ -1,0 +1,96 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pila_abc_aleatorio;
+
+import java.util.Random;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Pug
+ */
+public class Pila_ABC_aleatorio {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+       Scanner sc = new Scanner(System.in);
+        int tope = 0, opt = 0;
+        char[] pila = new char[26];
+         
+        do {
+            System.out.println("1 - llenar\n"
+                    + "2 - eliminar\n"
+                    + "3 - mostrar\n"
+                    + "4 - repetidos\n"
+                    + "5 - salir\n");
+            switch (opt = sc.nextInt()) {
+                case 1:
+                    //con el uso de la libreria Random.util.java declaramos una variable de este tipo
+                            Random randon = new Random();
+                    char letra ;
+                    for (int i = 0; i < 26; i++) {
+                        if (tope < 26) {
+                            //para poder imprimer letras random hacemos uno del ASCII para ver el intervalo de localizacion de las letras
+                            //para asi poder darles la caracteristica de impresion random. 
+                            pila[tope] = letra= (char) (randon.nextInt(90-65+1)+65);//abc[i];
+                            letra++;
+                            tope++;
+                        } else {
+                            System.out.println("pila llena....");
+                            break;
+                        }
+                    }
+                    break;
+                case 2:
+                    if (tope > 0) {
+                        System.out.println("dato eliminado..." + tope);
+                        //restar unidad a tope, para poder reutilizar la posicion 
+                        tope--;
+                    } else {
+                        System.out.println("no hay elementos para eliminar....");
+                    }
+                    break;
+                case 3:
+                    if (tope > 0) {
+                        for (int i = tope - 1; i >= 0; i--) {
+                            System.out.println(" " + pila[i]);
+                        }
+                    } else {
+                        System.out.println("pila vacia....");
+                    }
+                    break;
+                     case 4:
+                         //Primero agregamos 2 variables, un contador para almacenar el numero de repeticiones
+                         //La pila extra o el char es para poder agrupar una comolumna con los caracteres
+                        char rep;
+                        int muestra=0;
+                        //ciclo for anidado para poder almacenar la cantidad de repeticiones y darle 
+                        //inicio al contador para que comience a recibir las cantidades
+                          for (int i = 0; i < tope; i++){
+                        rep = pila[i];
+                        for (int j=0; j<tope; j++){
+                            if(pila[j] == rep){
+                                muestra++;
+                            }
+                        }
+                        //Hay letras que no se repiten pór lo que este if hace que no se muestren las que no tienen mas de 1 aparición
+                      if (muestra>1){
+                        System.out.println(pila[i] + " se repite " + muestra + " veces ");
+                        
+                        muestra=0;
+                      }
+                    }
+                    break;
+                        
+            }
+           
+            
+        } while (opt != 5);
+    }
+    
+}
